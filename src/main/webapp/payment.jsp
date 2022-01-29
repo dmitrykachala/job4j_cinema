@@ -33,6 +33,8 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 
+<script src="js/payment.js" ></script>
+
 <div class="container">
     <div class="row pt-3">
         <h3>
@@ -62,42 +64,6 @@
         </form>
     </div>
 </div>
-
-<script>
-
-    let form = document.querySelector('.formForSend');
-    let validateBtn = form.querySelector('.validateBtn');
-    let username = form.querySelector(".username");
-    let phone = form.querySelector(".phone");
-    let email = form.querySelector('.email')
-    let fields = form.querySelectorAll(".field");
-
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        let errors = form.querySelectorAll(".error");
-        let err = false;
-
-        for (let i = 0; i < errors.length; i++) {
-            errors[i].remove();
-        }
-
-        for (let i = 0; i < fields.length; i++) {
-            if (!fields[i].value) {
-                err = true;
-                let error = document.createElement("div");
-                error.className = "error";
-                error.style.color = "red";
-                error.innerHTML = "Поле не может быть пустым";
-                form[i].parentElement.insertBefore(error, fields[i]);
-            }
-        }
-        if (!err) {
-            form.submit();
-        }
-    })
-
-</script>
 
 </body>
 </html>

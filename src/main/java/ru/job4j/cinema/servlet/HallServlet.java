@@ -51,13 +51,16 @@ public class HallServlet extends HttpServlet {
             store.save(account);
         }
 
-        store.save(new Ticket()
+        Ticket result = store.save(new Ticket()
                 .setSessionId(sessionId)
                 .setCell(cell)
                 .setRow(row)
                 .setAccountId(store.findByPhone(phone).getId()));
 
-        resp.sendRedirect(req.getContextPath());
+        if (result != null) {
+            resp.sendRedirect(req.getContextPath());
+        } else {
+            resp.sendRedirect("error.html");
+        }
     }
-
 }

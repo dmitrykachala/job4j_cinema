@@ -94,6 +94,7 @@ public class InfoStore {
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Exception: ", e);
+            return null;
         }
         return ticket;
     }

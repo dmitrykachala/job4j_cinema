@@ -23,6 +23,8 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 
+    <script src="js/hall.js" ></script>
+
     <title>Билеты в кино</title>
 </head>
 <body>
@@ -75,78 +77,6 @@
         <button type="button" class="btn btn-success" onclick="payment();">Оплатить</button>
     </div>
 </div>
-
-<script>
-
-    let table = document.querySelector('.table');
-    let places = table.querySelectorAll('input[name=place]');
-    let place = 22;
-
-    let sessionsS = document.querySelectorAll('input[name=session]');
-    let session = 1;
-
-    places.forEach((i,l)=>{
-        i.addEventListener('change', function (event) {
-            event.preventDefault();
-
-            for (let i = 0; i < places.length; i++) {
-                if (places[i].checked) {
-                    console.log(places[i].value);
-                    place = places[i].value;
-                }
-            }
-        })
-    });
-
-    sessionsS.forEach((i,l)=>{
-        i.addEventListener('change', function (event) {
-            event.preventDefault();
-
-            for (let i = 0; i < sessionsS.length; i++) {
-                if (sessionsS[i].checked) {
-                    console.log(sessionsS[i].value);
-                    session = sessionsS[i].value;
-                }
-            }
-
-            loadHall(session);
-        })
-    });
-
-    function payment() {
-        document.location="payment.jsp?place=" + place + "&session=" + session;
-    }
-
-    function loadHall(session) {
-        $.ajax({
-            type: 'GET',
-            url: '<c:url value="/hall"/>',
-            dataType: 'json'
-        }).done(function (data) {
-            let radios = document.getElementsByName('place');
-
-            for (radio of radios) {
-                if (radio.disabled) {
-                    radio.disabled = false;
-                }
-            }
-
-            for (var ticket of data) {
-                for (radio of radios) {
-                    if (radio.value == (ticket.row.toString() + ticket.cell.toString())
-                        && session == ticket.sessionId) {
-                        radio.disabled = true;
-                    }
-                }
-            }
-        }).fail(function (err) {
-            $('#hello').text("Smth wrong");
-        });
-    }
-
-    $(document).ready(loadHall(session));
-
-</script>
 
 </body>
 </html>
